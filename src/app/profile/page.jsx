@@ -127,9 +127,9 @@ export default function ProfileClient() {
               </form>
             </div>
             <div className=" w-full flex justify-center">
-              <button className=" bg-black text-white px-10 py-4 uppercase rounded-md">
+              <a href="/results" className=" bg-black text-white px-10 py-4 uppercase rounded-md">
                 Analyze
-              </button>
+              </a>
             </div>
           </main>
         </div>
