@@ -17,7 +17,7 @@ export default function ProfileClient() {
     const url = `http://127.0.0.1:5001/api/model`; // Replace with your API endpoint URL
     // Data to be sent in the request body
     const data = {
-      imageurl: file,
+      filename: file,
       imagetype: imageType,
       diseasetype: disease,
       displayfile: displayFile,
@@ -33,8 +33,8 @@ export default function ProfileClient() {
       });
 
       if (response.ok) {
-        const jsonResponse = await response.json();
-        setModelRes(jsonResponse["key"]);
+        // const jsonResponse = await response.json();
+        // setModelRes(jsonResponse["key"]);
         setLoading(false);
         console.log("Data updated successfully:", jsonResponse);
       } else {
@@ -216,7 +216,7 @@ export default function ProfileClient() {
               >
                 Analyze
               </a>
-            </div>{" "}
+            </div>
           </main>
         </div>
       </>
