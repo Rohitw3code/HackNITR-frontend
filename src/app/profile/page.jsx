@@ -1,19 +1,24 @@
 "use client";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 
 export default function ProfileClient() {
   const { user, error, isLoading } = useUser();
+  const [file, setFile] = useState(null);
+  function handleChange(e) {
+    console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
+}
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
-  useEffect(
-    function () {
-      console.log(user);
-    },
-    [user]
-  );
+  // useEffect(
+  //   function () {
+  //     console.log(user);
+  //   },
+  //   [user]
+  // );
   return (
     user && (
       <>
@@ -43,7 +48,7 @@ export default function ProfileClient() {
             </div>
             <div className=" m-4 flex gap-4 justify-around">
               <div class="flex items-center justify-center w-1/2">
-                <label
+                {file === null ? <label
                   for="dropzone-file"
                   class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                 >
@@ -71,8 +76,11 @@ export default function ProfileClient() {
                       SVG, PNG, JPG or GIF (MAX. 800x400px)
                     </p>
                   </div>
-                  <input id="dropzone-file" type="file" class="hidden" />
+                  <input id="dropzone-file" type="file" class="hidden"  onChange={handleChange}/>
                 </label>
+                : (<>
+                <img src={file} onClick={() => setFile(null)} />
+                </>)}
               </div>
 
               <form class="w-1/2 mx-auto">
@@ -80,49 +88,41 @@ export default function ProfileClient() {
                   for="small"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Small select
+                  MRI Scan
                 </label>
                 <select
                   id="small"
                   class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option selected>Choose a country</option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
+                  <option value="US" selected>None</option>
+                  <option value="brain">Brain Tumour</option>
+                  <option value="bone">Bone Fracture</option>
                 </select>
                 <label
                   for="default"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
-                  Default select
+                  Normal Image
                 </label>
                 <select
                   id="default"
                   class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option selected>Choose a country</option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
+                  <option selected>None</option>
+                  <option value="normal" >Normal Image</option>
                 </select>
                 <label
                   for="large"
                   class="block mb-2 text-base font-medium text-gray-900 dark:text-white"
                 >
-                  Large select
+                  X-ray Scan
                 </label>
                 <select
                   id="large"
                   class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                  <option selected>Choose a country</option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
+                  <option value="none" selected>None</option>
+                  <option value="xray" >X-ray Scan</option>
                 </select>
               </form>
             </div>
