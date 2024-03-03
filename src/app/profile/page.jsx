@@ -4,6 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 import { PickerOverlay } from "filestack-react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function ProfileClient() {
   const { user, error, isLoading } = useUser();
@@ -11,7 +12,9 @@ export default function ProfileClient() {
   const [displayFile, setDisplayFile] = useState(null);
   const [imageType, setImageType] = useState(null);
   const [disease, setDisease] = useState(null);
-  const [modelRes, setModelRes] = useState({});
+  const [modelRes, setModelRes] = useState(null);
+  const [loading, setLoading] = useState(null);
+  const [done, setDone] = useState(false);
 
   const dataAnalyzer = async (col, dtype) => {
     const url = `http://127.0.0.1:5001/api/model`; // Replace with your API endpoint URL
@@ -33,13 +36,23 @@ export default function ProfileClient() {
       });
 
       if (response.ok) {
-        // const jsonResponse = await response.json();
-        // setModelRes(jsonResponse["key"]);
-        setLoading(false);
+        const jsonResponse = await response.json();
+        // setModelRes(jsonResponse["res"]);
+
+      setModelRes({'res':jsonResponse["res"],
+      'desc':jsonResponse['desc'],
+      'imagetype':jsonResponse['imagetype'],
+      'displayfile':jsonResponse['displayfile']
+    });        
+
+    setLoading(false);
+        setDone(true);
+        // Use Link component to navigate to "/results" with query parameters
         console.log("Data updated successfully:", jsonResponse);
       } else {
         setError("Failed to fetch data");
         setLoading(false);
+        setDone(false);
         // Request failed
         console.error(
           "Failed to update data:",
@@ -48,6 +61,7 @@ export default function ProfileClient() {
         );
       }
     } catch (error) {
+      setDone(false);
       console.error("Error:", error);
     }
   };
@@ -82,15 +96,26 @@ export default function ProfileClient() {
     user && (
       <>
         <div className=" flex">
-        <header className=" h-screen w-2/12" style={{backgroundColor : "#114232"}}>
+          <header
+            className=" h-screen w-2/12"
+            style={{ backgroundColor: "#114232" }}
+          >
             <nav className="text-white">
               <li className="list-none  p-3">
                 <a href="/summarize">Doctor Summarizer</a>
               </li>
-              <li className=" text-green-900 font-medium rounded-l-2xl ml-6 list-none p-3" style={{backgroundColor : "#A5DD9B"}}>Dashboard</li>
+              <li
+                className=" text-green-900 font-medium rounded-l-2xl ml-6 list-none p-3"
+                style={{ backgroundColor: "#A5DD9B" }}
+              >
+                Dashboard
+              </li>
             </nav>
           </header>
-          <main className=" w-full min-h-screen  p-4" style={{backgroundColor : "#A5DD9B"}}>
+          <main
+            className=" w-full min-h-screen  p-4"
+            style={{ backgroundColor: "#A5DD9B" }}
+          >
             <div className=" flex gap-3 items-center">
               <img
                 className=" rounded-full w-20"
@@ -99,7 +124,12 @@ export default function ProfileClient() {
               />
               <div>
                 <h2 className=" font-semibold text-xl">Hello {user.name} 👋</h2>
-                <h1 className=" font-bold text-4xl" style={{color : "#12372A"}}>Welcome</h1>
+                <h1
+                  className=" font-bold text-4xl"
+                  style={{ color: "#12372A" }}
+                >
+                  Welcome
+                </h1>
               </div>
             </div>
             <div className=" m-4 flex gap-4 justify-around">
@@ -181,7 +211,7 @@ export default function ProfileClient() {
                     None
                   </option>
                   <option value="skincancer">Skin Chancer</option>
-                  <option value="eye">eye</option>
+                  <option value="eye">Multiclass Retina</option>
                 </select>
                 <label
                   for="large"
@@ -202,20 +232,36 @@ export default function ProfileClient() {
                 </select>
               </form>
             </div>
-            <div className=" w-full flex justify-center">
-              <Link
-                href={{pathname:"/results",
-                query:{
-                  'name':'Rohit'
-                }
-              }}
+            <div className="w-full flex justify-center">
+              {/* Conditionally render Link only when modelRes is set */}
+              <button
+                className="text-white px-10 mx-4 py-4 uppercase rounded-md"
+                style={{ backgroundColor: "#114232" }}
                 onClick={dataAnalyzer}
-                className=" text-white px-10 py-4 uppercase rounded-md"
-                style={{backgroundColor : "#114232"}}
               >
-                Analyze
-              </Link>
-            </div>
+                analyze
+              </button>
+              {modelRes && (
+                <Link
+                  href={{
+                    pathname: "/results",
+                    query: {
+                      res: modelRes['res'],
+                      desc: modelRes['desc'],
+                      displayfile:modelRes['displayfile']
+                    },
+                  }}
+                >
+                  <div
+                    className="text-white px-10 py-4 uppercase rounded-md"
+                    style={{ backgroundColor: "#114232" }}
+                    onClick={dataAnalyzer}
+                  >
+                    View Result
+                  </div>
+                </Link>
+              )}
+            </div>{" "}
           </main>
         </div>
       </>

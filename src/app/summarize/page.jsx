@@ -138,21 +138,7 @@ export default function Summarizer() {
                   </div>
                   <div className=" w-1/2 shadow-xl p-3 rounded" style={{backgroundColor : "#C5EBAA"}}>
                     <MarkdownView
-                      markdown="**Medical Report on Mr. Tan Ah Kow** **Patient's
-                      Condition:** Mr. Tan, 55, has dementia and has suffered
-                      strokes. He has difficulty understanding, remembering, and
-                      making decisions.<br> **Mental Capacity Assessment:**<br>
-                      **Personal Welfare:**<br> Mr. Tan cannot understand or make
-                      decisions about his personal care, such as where to live or
-                      medical treatment.<br> **Property and Affairs:**<br> Mr. Tan
-                      cannot understand or make decisions about his finances or
-                      property.<br> **Prognosis:** <br>Mr. Tan's condition is unlikely to
-                      improve and may worsen over time. He is not expected to
-                      regain mental capacity.<br> **Conclusion:** <br>Mr. Tan currently
-                      lacks mental capacity to make decisions about his personal
-                      welfare and property and affairs. He is unable to
-                      understand, retain, use, or communicate information
-                      necessary for decision-making."
+                      markdown={response}
                       options={{ tables: true, emoji: true,simpleLineBreaks: true }}
                     />
                   </div>

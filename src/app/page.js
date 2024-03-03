@@ -81,18 +81,15 @@ const Header = () => {
               Brand new
             </p>
             <h2 className="mb-5 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
-              Everything you
+            HealthAI: Accurate Disease Prediction 
               <br className="hidden md:block" />
-              can imagine{' '}
+              and Simplified {' '}
               <span className="inline-block text-purple-400">
-                is real
+              Doctor Report Summaries
               </span>
             </h2>
             <p className="pr-5 mb-5 text-base text-slate-300 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-              quae. explicabo.
-            </p>
+            Empower your health with HealthAI—predict diseases accurately and simplify doctor reports effortlessly. Just upload medical photos, and our advanced AI delivers precise predictions and easy-to-understand summaries. Take control of your well-being with HealthAI's cutting-edge technology for accurate insights anytime, anywhere.</p>
             <div className="flex items-center">
               <Link
                 href="/login"
