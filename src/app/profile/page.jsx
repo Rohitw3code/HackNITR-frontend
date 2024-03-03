@@ -209,13 +209,17 @@ export default function ProfileClient() {
               </form>
             </div>
             <div className=" w-full flex justify-center">
-              <a
-                href="/results"
+              <Link
+                href={{pathname:"/results",
+                query:{
+                  'name':'Rohit'
+                }
+              }}
                 onClick={dataAnalyzer}
                 className=" bg-black text-white px-10 py-4 uppercase rounded-md"
               >
                 Analyze
-              </a>
+              </Link>
             </div>
           </main>
         </div>
