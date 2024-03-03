@@ -4,35 +4,36 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router'
 
-
-export default function Result() {
+export default function Result(propos) {
   const [displayFile, setDisplayFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState({});
+  console.log(propos.searchParams['name']);
 
-  const fetchParam = async () => {
-    try {
-      const resp = await fetch(`http://127.0.0.1:5001/api/parameter`);
-      if (resp.ok) {
-        const jsonData = await resp.json();
-        // Assuming jsonData contains the correct structure with 'displayfile' property
-        setDisplayFile(jsonData['displayFile']);
-        setData(jsonData);
-        setLoading(false);
-      } else {
-        setError("Failed to fetch data");
-        setLoading(false);
-      }
-    } catch (error) {
-      setError("Error: " + error.message);
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
+    const fetchParam = async () => {
+      try {
+        const resp = await fetch(`http://127.0.0.1:5001/api/parameter`);
+        if (resp.ok) {
+          const jsonData = await resp.json();
+          // Assuming jsonData contains the correct structure with 'displayfile' property
+          setDisplayFile(jsonData['displayFile']);
+          setData(jsonData);
+          setLoading(false);
+        } else {
+          setError("Failed to fetch data");
+          setLoading(false);
+        }
+      } catch (error) {
+        setError("Error: " + error.message);
+        setLoading(false);
+      }
+    };
+
     fetchParam();
-  },loading); // Empty dependency array to run the effect only once on mount
+  }, []); // Empty dependency array to run the effect only once on mount
 
   return (
     <>

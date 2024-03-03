@@ -128,7 +128,9 @@ export default function Summarizer() {
                     Summarize
                   </button>
                 </div>
-                {response}
+                **Medical Report on Mr. Tan Ah Kow** **Patient's Condition:** Mr. Tan, 55, has dementia and has suffered strokes. He has difficulty understanding, remembering, and making decisions. **Mental Capacity Assessment:** * **Personal Welfare:** Mr. Tan cannot understand or make decisions about his personal care, such as where to live or medical treatment. * **Property and Affairs:** Mr. Tan cannot understand or make decisions about his finances or property. **Prognosis:** Mr. Tan's condition is unlikely to improve and may worsen over time. He is not expected to regain mental capacity. **Conclusion:** Mr. Tan currently lacks mental capacity to make decisions about his personal welfare and property and affairs. He is unable to understand, retain, use, or communicate information necessary for decision-making.
+
+                {/* {response} */}
               </div>
             </div>
           </main>
