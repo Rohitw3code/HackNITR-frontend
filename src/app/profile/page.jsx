@@ -82,21 +82,15 @@ export default function ProfileClient() {
     user && (
       <>
         <div className=" flex">
-          <header className=" bg-blue-400 h-screen w-2/12">
-            <nav className=" text-white">
-              <li className=" list-none bg-blue-600 p-3">HOME</li>
-              <li className=" list-none border-b  p-3">
+        <header className=" h-screen w-2/12" style={{backgroundColor : "#114232"}}>
+            <nav className="text-white">
+              <li className="list-none  p-3">
                 <a href="/summarize">Doctor Summarizer</a>
               </li>
-              <li className=" list-none  border-b p-3">
-                <a href="/pricing">Pricing</a>
-              </li>
-              <li className=" list-none  border-b p-3">
-                <a href="/settings">Settings</a>
-              </li>
+              <li className=" text-green-900 font-medium rounded-l-2xl ml-6 list-none p-3" style={{backgroundColor : "#A5DD9B"}}>Dashboard</li>
             </nav>
           </header>
-          <main className=" w-full min-h-screen  bg-blue-100 p-4">
+          <main className=" w-full min-h-screen  p-4" style={{backgroundColor : "#A5DD9B"}}>
             <div className=" flex gap-3 items-center">
               <img
                 className=" rounded-full w-20"
@@ -104,8 +98,8 @@ export default function ProfileClient() {
                 alt={user.name}
               />
               <div>
-                <h2 className=" font-semibold text-xl">Hello {"Rajeev"} 👋</h2>
-                <h1 className=" font-bold text-4xl">Welcome</h1>
+                <h2 className=" font-semibold text-xl">Hello {user.name} 👋</h2>
+                <h1 className=" font-bold text-4xl" style={{color : "#12372A"}}>Welcome</h1>
               </div>
             </div>
             <div className=" m-4 flex gap-4 justify-around">
@@ -216,7 +210,8 @@ export default function ProfileClient() {
                 }
               }}
                 onClick={dataAnalyzer}
-                className=" bg-black text-white px-10 py-4 uppercase rounded-md"
+                className=" text-white px-10 py-4 uppercase rounded-md"
+                style={{backgroundColor : "#114232"}}
               >
                 Analyze
               </Link>

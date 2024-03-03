@@ -3,13 +3,18 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router'
+import { useSearchParams } from "next/navigation";
 
 export default function Result(propos) {
   const [displayFile, setDisplayFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState({});
-  console.log(propos.searchParams['name']);
+  const searchParams = useSearchParams()
+ 
+  const search = searchParams.get('name')
+  // console.log(propos.searchParams['name']);
+  console.log(search)
 
 
   useEffect(() => {
